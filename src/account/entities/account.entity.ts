@@ -14,7 +14,7 @@ export class Admin {
   @Column({ type: 'varchar', length: 15, comment: '昵称' })
   name: string
 
-  @Column({ type: 'int', comment: '账号性质 1为超级管理员' })
+  @Column({ type: 'int', comment: '账号性质 1为超级管理员,2为普通管理员' })
   account: number //账号性质
 
   @Column({ type: 'varchar', length: 20, comment: '邮箱' })
