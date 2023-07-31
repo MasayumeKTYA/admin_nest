@@ -8,6 +8,6 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix('api');
 
-  await app.listen(80);
+  await app.listen(8080);
 }
 bootstrap();
