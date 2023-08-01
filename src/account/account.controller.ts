@@ -38,7 +38,7 @@ export class AccountController {
   }
   //删除管理
   @UseGuards(AuthGuard('jwt'))
-  @Post('addAdmin')
+  @Post('delAdmin')
   async PostDel(
     @Body(
       new ValidationPipe()) data: typeDelAdmin,
@@ -50,7 +50,7 @@ export class AccountController {
 
   //修改管理
   @UseGuards(AuthGuard('jwt'))
-  @Post('addAdmin')
+  @Post('updataAdmin')
   async PostUpdata(
     @Body(
       new ValidationPipe()) data: typeUpdataAdmin,
@@ -58,5 +58,15 @@ export class AccountController {
   ) {
     console.log(req.user);
     return this.accountService.updataAdminUse(data, req)
+  }
+
+  //个人修改
+  @UseGuards(AuthGuard('jwt'))
+  @Post('modifyPerson')
+  async modifyPerson(
+    @Body(
+      new ValidationPipe()) data: typeUpdataAdmin,
+    @Req() req: Request) {
+    return this.accountService.modifyPerson(data, req)
   }
 }

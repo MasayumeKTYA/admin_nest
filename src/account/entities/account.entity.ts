@@ -39,4 +39,7 @@ export class Login {
 
   @Column({ type: 'varchar', length: 18, comment: '登录时间' })
   createTime: string
+
+  @Column({ type: 'varchar', length: 10, comment: '操作类型' })
+  operation: string
 }

@@ -1,13 +1,13 @@
-import { IsString, IsNotEmpty, IsNumber, IsEmail } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsEmail, IsOptional } from 'class-validator';
 import type { Request } from 'express'
 //账号
 export class typeAdminLogin {
-  @IsNotEmpty({ message: 'account 不允许为空' })
-  @IsString()
+  @IsNotEmpty({ message: 'username 不允许为空' })
+  @IsString({ message: 'username 必须为string' })
   username: string;
 
   @IsNotEmpty({ message: 'password 不允许为空' })
-  @IsString()
+  @IsString({ message: 'password 必须为string' })
   password: string;
 }
 //添加管理员
@@ -41,24 +41,31 @@ export class typeDelAdmin {
 //修改管理员
 export class typeUpdataAdmin {
   @IsNotEmpty({ message: 'id 不允许为空' })
+  @IsOptional()
   @IsNumber()
   id: number;
 
+  @IsOptional()
   @IsEmail()
   email: string;
 
+  @IsOptional()
   @IsString()
   password: string;
 
+  @IsOptional()
   @IsString()
   name: string;
 
+  @IsOptional()
   @IsNumber()
   account: number;
 
+  @IsOptional()
   @IsString()
   username: string;
 }
+
 //日志
 export class typeAdminLog {
   @IsNumber()
