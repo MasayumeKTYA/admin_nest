@@ -1,10 +1,8 @@
 import {
-  Controller, Post, Body, UseGuards, ValidationPipe, Req,
-
+  Controller, Post, Body, UseGuards, Req,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { typeAdminLogin, typeAdminLog, typeAddAdmin, typeDelAdmin, typeUpdataAdmin } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 import { Request } from 'express'
@@ -13,24 +11,20 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) { }
   //登录
   @Post('login')
-  async PostAdminLogin(
-    @Body(new ValidationPipe()) data: typeAdminLogin,
-  ) {
+  async PostAdminLogin(@Body() data: typeAdminLogin,) {
     return this.accountService.adminLogin(data,)
   }
   //查询日志
   @UseGuards(AuthGuard('jwt'))
   @Post('log')
-  async PostLog(
-    @Body(new ValidationPipe()) data: typeAdminLog) {
+  async PostLog(@Body() data: typeAdminLog) {
     return this.accountService.adminLog(data)
   }
   //添加管理
   @UseGuards(AuthGuard('jwt'))
   @Post('addAdmin')
   async PostAdd(
-    @Body(
-      new ValidationPipe()) data: typeAddAdmin,
+    @Body() data: typeAddAdmin,
     @Req() req: Request
   ) {
     console.log(req.user);
@@ -40,8 +34,7 @@ export class AccountController {
   @UseGuards(AuthGuard('jwt'))
   @Post('delAdmin')
   async PostDel(
-    @Body(
-      new ValidationPipe()) data: typeDelAdmin,
+    @Body() data: typeDelAdmin,
     @Req() req: Request
   ) {
     console.log(req.user);
@@ -52,8 +45,7 @@ export class AccountController {
   @UseGuards(AuthGuard('jwt'))
   @Post('updataAdmin')
   async PostUpdata(
-    @Body(
-      new ValidationPipe()) data: typeUpdataAdmin,
+    @Body() data: typeUpdataAdmin,
     @Req() req: Request
   ) {
     console.log(req.user);
@@ -64,8 +56,7 @@ export class AccountController {
   @UseGuards(AuthGuard('jwt'))
   @Post('modifyPerson')
   async modifyPerson(
-    @Body(
-      new ValidationPipe()) data: typeUpdataAdmin,
+    @Body() data: typeUpdataAdmin,
     @Req() req: Request) {
     return this.accountService.modifyPerson(data, req)
   }

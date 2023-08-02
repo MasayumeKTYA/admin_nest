@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-export class shopList {
+@Entity({ name: 'admin_shop_list' })
+export class ShopList {
   @PrimaryGeneratedColumn({ type: 'int', comment: '主键id' })
   id: number
 
@@ -13,7 +14,8 @@ export class shopList {
   price: number
 }
 
-export class shopClassify {
+@Entity({ name: 'admin_shop_classify' })
+export class ShopClassify {
   @PrimaryGeneratedColumn({ type: 'int', comment: '主键id' })
   id: number
 
