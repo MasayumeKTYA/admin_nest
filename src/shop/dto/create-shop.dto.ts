@@ -7,11 +7,6 @@ export class typeAddClassify {
   title: string;
 }
 
-
-
-
-
-
 //添加商品
 export class typeAddShop {
   @IsNotEmpty({ message: 'shopTitle 不允许为空' })
@@ -20,7 +15,7 @@ export class typeAddShop {
 
   @IsNotEmpty({ message: 'shopTitle 不允许为空' })
   @IsString()
-  Classify: string
+  shopClassify: string
 
   @IsNotEmpty({ message: 'price 不允许为空' })
   @IsNumber()
@@ -33,21 +28,23 @@ export class typeUpdataShop {
   @IsNotEmpty({ message: 'id 不允许为空' })
   @IsNumber()
   id: number
-}
 
+  @IsNotEmpty({ message: 'shopTitle 不允许为空' })
+  @IsString()
+  @IsOptional()
+  shopTitle: string
 
+  @IsNotEmpty({ message: 'shopClassify 不允许为空' })
+  @IsString()
+  @IsOptional()
+  shopClassify: string
 
-//删除
-export class typeDel {
-  @IsNotEmpty({ message: 'id 不允许为空' })
+  @IsNotEmpty({ message: 'price 不允许为空' })
   @IsNumber()
-  id: number;
+  @IsOptional()
+  price: number
+
 }
 
 
-//查询分类
-export class typeFind {
-  @IsNotEmpty({ message: 'page 不允许为空' })
-  @IsNumber()
-  page: number;
-}
+

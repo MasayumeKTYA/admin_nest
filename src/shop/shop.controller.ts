@@ -2,9 +2,9 @@ import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { Request } from 'express'
 import { ShopService } from './shop.service';
 import {
-  typeAddClassify, typeAddShop, typeUpdataShop,
-  typeDel, typeFind
+  typeAddClassify, typeAddShop, typeUpdataShop
 } from './dto/create-shop.dto'
+import { TypeID, typePage } from 'src/DTO/share';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard('jwt'))
@@ -17,21 +17,20 @@ export class ShopController {
     @Body() data: typeAddClassify,
     req: Request
   ) {
-
     return this.shopService.addClassify(data)
   }
 
   //删除分类
   @Post('delClassify')
   async PostdelShopClassify(
-    @Body() data: typeDel) {
+    @Body() data: TypeID) {
     return this.shopService.delClassify(data)
   }
 
   //查询分类
   @Post('findClassify')
   async PostFindShopClassify(
-    @Body() data: typeFind) {
+    @Body() data: typePage) {
     return this.shopService.findClassify(data)
   }
 
@@ -43,13 +42,13 @@ export class ShopController {
 
   //删除商品
   @Post('delShop')
-  async PostDelShop(@Body() params: typeDel) {
+  async PostDelShop(@Body() params: TypeID) {
     return this.shopService.delShop(params)
   }
 
   //查询商品
   @Post('findShop')
-  async PostFindShop(@Body() params: typeFind) {
+  async PostFindShop(@Body() params: typePage) {
     return this.shopService.findShop(params)
   }
 
