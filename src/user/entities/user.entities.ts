@@ -41,3 +41,23 @@ export class UserInfo {
   @CreateDateColumn({ comment: '创建时间' })
   createDate: string
 }
+
+@Entity({ name: "admin_user_logistics" })
+export class Logistics {
+  @PrimaryGeneratedColumn({ comment: '主键' })
+  id: number
+
+  @Column({ type: 'int', name: 'user_id', comment: '用户id' })
+  userid: number
+
+  @Column({ type: "varchar", comment: '发货地' })
+  sendAddress: string
+
+
+  @Column({ type: "varchar", comment: '收货地' })
+  acceptAddress: string
+
+
+  @Column({ type: "varchar", comment: '商品名称' })
+  shopTitle: string
+}

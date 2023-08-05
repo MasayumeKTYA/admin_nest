@@ -1,5 +1,5 @@
 import { Injectable, HttpException } from '@nestjs/common';
-import { UserOrder, UserInfo } from './entities/user.entities';
+import { UserOrder, UserInfo, Logistics } from './entities/user.entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 //DTO
@@ -10,6 +10,7 @@ export class UserService {
   constructor(
     @InjectRepository(UserOrder) private readonly userOrder: Repository<UserOrder>,
     @InjectRepository(UserInfo) private readonly userInfo: Repository<UserInfo>,
+    @InjectRepository(Logistics) private readonly logistics: Repository<Logistics>,
   ) { }
   //添加用户信息
   async addUser(params: addUserInfo) {
@@ -44,7 +45,18 @@ export class UserService {
     return { data: res }
   }
 
-  async addorder() {
+  //查询用户够买的商品类型
+  async findUserByClass() {
+    const res = await this.userOrder.createQueryBuilder("userOrder")
+      .leftJoinAndSelect('userOrder.user', 'user') // 连接 User 实体，并使用别名 'user'
+      .leftJoinAndSelect('userOrder.order', 'order') // 连接 Order 实体，并使用别名 'order'
+      .where('userOrder.id = :id', { id: 1 }) // 添加查询条件，这里以 userOrder 的 id 为例
+      .getMany(); // 执行查询并返回全部个结果
+    return { data: 'ok' }
+  }
+
+  //获取用户发货信息
+  async getUserSendData(params: typePage) {
     return { data: 'ok' }
   }
 }

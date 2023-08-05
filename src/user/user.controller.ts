@@ -2,7 +2,7 @@ import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 //DTO
-import { addUserInfo, updataUserInfo } from './dto/create-user.dto'
+import { addUserInfo, updataUserInfo, } from './dto/create-user.dto'
 import { TypeID, typePage } from 'src/DTO/share';
 @UseGuards(AuthGuard('jwt'))
 @Controller('user')
@@ -31,5 +31,17 @@ export class UserController {
   @Post('findUser')
   async PostFindUser(@Body() params: typePage) {
     return this.userService.findUser(params)
+  }
+
+  //查询用户够买的商品类型
+  @Post('findUserAndClass')
+  async postFindUserClass() {
+    return this.userService.findUserByClass()
+  }
+
+  //获取发货信息
+  @Post('findLogistics')
+  async getSendData(@Body() params: typePage) {
+    return this.userService.getUserSendData(params)
   }
 }
