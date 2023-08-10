@@ -2,7 +2,8 @@ import {
   Controller, Post, Body, UseGuards, Req,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
-import { typeAdminLogin, typeAdminLog, typeAddAdmin, typeDelAdmin, typeUpdataAdmin } from './dto/create-account.dto';
+import { typeAdminLogin, typeAddAdmin, typeDelAdmin, typeUpdataAdmin } from './dto/create-account.dto';
+import { typePage } from 'src/DTO/share';
 import { AuthGuard } from '@nestjs/passport';
 
 import { Request } from 'express'
@@ -17,8 +18,14 @@ export class AccountController {
   //查询日志
   @UseGuards(AuthGuard('jwt'))
   @Post('log')
-  async PostLog(@Body() data: typeAdminLog) {
+  async PostLog(@Body() data: typePage) {
     return this.accountService.adminLog(data)
+  }
+  //查询管理员列表
+  @UseGuards(AuthGuard('jwt'))
+  @Post('adminList')
+  async PostAdminList(@Body() data: typePage) {
+    return this.accountService.adminList(data)
   }
   //添加管理
   @UseGuards(AuthGuard('jwt'))

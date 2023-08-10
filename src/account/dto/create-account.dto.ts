@@ -66,11 +66,5 @@ export class typeUpdataAdmin {
   username: string;
 }
 
-//日志
-export class typeAdminLog {
-  @IsNumber()
-  @IsNotEmpty({ message: 'page 不允许为空' })
-  page: number
-}
 
 

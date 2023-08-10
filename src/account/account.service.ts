@@ -1,8 +1,9 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import {
-  typeAdminLogin, typeAdminLog, typeAddAdmin, typeDelAdmin,
+  typeAdminLogin, typeAddAdmin, typeDelAdmin,
   typeUpdataAdmin
 } from './dto/create-account.dto';
+import { typePage } from 'src/DTO/share';
 import type { Request } from 'express';
 //jwt
 import { JwtService } from '@nestjs/jwt';
@@ -113,7 +114,7 @@ export class AccountService {
     return { message: '修改成功' }
   }
   //查询登录日志
-  async adminLog(data: typeAdminLog) {
+  async adminLog(data: typePage) {
     console.log(data.page);
 
     const checkRes = await this.login.find({
@@ -122,6 +123,14 @@ export class AccountService {
     })
     const len = await this.login.count()
     return { data: checkRes, toall: len }
+  }
+  //管理员列表
+  async adminList(params: typePage) {
+    const res = await this.admin.find({
+      take: 10,
+      skip: (params.page - 1) * 10
+    })
+    return { data: res }
   }
   //更新日志封装函数
   private updataLog(username: string, operation: string) {

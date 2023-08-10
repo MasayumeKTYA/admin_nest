@@ -39,9 +39,20 @@ export class UserController {
     return this.userService.findUserByClass()
   }
 
+  //获取用户性别
+  @Post('getSex')
+  async postGetSex() {
+    return this.userService.findUserSex()
+  }
   //获取发货信息
   @Post('findLogistics')
-  async getSendData(@Body() params: typePage) {
+  async postSendData(@Body() params: typePage) {
     return this.userService.getUserSendData(params)
+  }
+
+  //获取近一周的金额
+  @Post('getWeekSum')
+  async postWeekSum() {
+    return this.userService.getLateWeekMonkey()
   }
 }

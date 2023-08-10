@@ -1,19 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
-
-@Entity({ name: "admin_user_order" })
-export class UserOrder {
-  @PrimaryGeneratedColumn({ comment: '主键' })
-  id: number
-
-  @Column({ name: 'user_id', type: "int", comment: '用户id' })
-  orderUser: number
-
-  @Column({ name: 'shop_id', type: "int", comment: '商品id' })
-  orderShop: number
-
-  @Column({ type: "varchar", comment: '订单编号' })
-  orderNum: string
-}
+import {
+  Entity, PrimaryGeneratedColumn, Column, CreateDateColumn,
+  OneToMany, ManyToOne, JoinColumn
+} from "typeorm";
 
 @Entity({ name: "admin_user_info" })
 export class UserInfo {
@@ -38,9 +26,37 @@ export class UserInfo {
   @Column({ type: "varchar", comment: '用户性别' })
   address: string
 
-  @CreateDateColumn({ comment: '创建时间' })
-  createDate: string
+  @Column({ comment: '创建时间', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', })
+  createDate: string;
+
+
+  // @OneToMany(type => UserOrder, userOrder => userOrder.orderUser)
+  // joinOrder: UserOrder[]
 }
+@Entity({ name: "admin_user_order" })
+export class UserOrder {
+  @PrimaryGeneratedColumn({ comment: '主键' })
+  id: number
+
+  @Column({ name: 'user_id', type: "int", comment: '用户id' })
+  // @ManyToOne(type => UserInfo, userinfo => userinfo.joinOrder)
+  // @JoinColumn({ name: 'user_id' })
+  orderUser: number
+
+  @Column({ name: 'shop_id', type: "int", comment: '商品id' })
+  orderShop: number
+
+  @Column({ type: "varchar", comment: '订单编号' })
+  orderNum: string
+
+  @Column({ comment: '创建时间', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', })
+  createDate: string;
+
+  @Column({ type: 'varchar', length: '15', comment: '创建时间' })
+  currentDate: string
+}
+
+
 
 @Entity({ name: "admin_user_logistics" })
 export class Logistics {
@@ -60,4 +76,10 @@ export class Logistics {
 
   @Column({ type: "varchar", comment: '商品名称' })
   shopTitle: string
+
+  @Column({ type: "varchar", comment: '订单编号' })
+  orderNum: string
+
+  @Column({ comment: '创建时间', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', })
+  createDate: string;
 }

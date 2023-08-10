@@ -1,5 +1,6 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { UserOrder, UserInfo, Logistics } from './entities/user.entities';
+import { ShopList } from '../shop/entities/shop.entities'
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 //DTO
@@ -48,15 +49,40 @@ export class UserService {
   //查询用户够买的商品类型
   async findUserByClass() {
     const res = await this.userOrder.createQueryBuilder("userOrder")
-      .leftJoinAndSelect('userOrder.user', 'user') // 连接 User 实体，并使用别名 'user'
-      .leftJoinAndSelect('userOrder.order', 'order') // 连接 Order 实体，并使用别名 'order'
-      .where('userOrder.id = :id', { id: 1 }) // 添加查询条件，这里以 userOrder 的 id 为例
-      .getMany(); // 执行查询并返回全部个结果
-    return { data: 'ok' }
+      .leftJoinAndSelect(ShopList, 'shopList', 'userOrder.orderShop = shopList.id') // 连接 User 实体，并使用别名 'user'
+      .select('shopList.shopClassify', 'shop_class')
+      .addSelect('COUNT(shopList.shopClassify)', 'num')
+      .groupBy("shopList.shopClassify")
+      .getRawMany(); // 执行查询并返回全部个结果
+
+    return { data: res }
+  }
+
+  //获取用户性别
+  async findUserSex() {
+    const res = await this.userInfo.createQueryBuilder('userInfo')
+      .select('COUNT(userInfo.sex)', 'gender')
+      .groupBy('userInfo.sex')
+      .getRawMany()
+    const sexRes = { man: res[0].gender, woman: res[1].gender }
+    return { data: sexRes }
   }
 
   //获取用户发货信息
   async getUserSendData(params: typePage) {
     return { data: 'ok' }
+  }
+
+  //获取近一周金额
+  async getLateWeekMonkey() {
+
+    const res = await this.userOrder.createQueryBuilder('userOrder')
+      .leftJoinAndSelect(ShopList, 'shopList', 'userOrder.orderShop = shopList.id')
+      .select('userOrder.currentDate', 'currentDate')
+      .addSelect('SUM(shopList.price)', 'sumPrice')
+      .where('userOrder.currentDate BETWEEN :startTime AND :endTime', { startTime: '2023-08-08', endTime: '2023-08-08' })
+      .groupBy('userOrder.currentDate')
+      .getRawMany()
+    return { data: res }
   }
 }

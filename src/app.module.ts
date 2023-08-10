@@ -14,10 +14,11 @@ import { env } from './env';
       password: env.DB_PASSWORD,
       database: env.DB_DATABASE,
       retryDelay: 500,
+      // logger: true,
       extra: {
         dateStrings: true
       },
-      retryAttempts: 2,
+      retryAttempts: 1,
       synchronize: true, // 是否将实体同步到数据库 自动创建表
       autoLoadEntities: true, // 自动加载实体配置，forFeature()注册的每个实体都自己动加载
     }),
