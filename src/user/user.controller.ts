@@ -52,7 +52,7 @@ export class UserController {
 
   //获取近一周的金额
   @Post('getWeekSum')
-  async postWeekSum() {
-    return this.userService.getLateWeekMonkey()
+  async postWeekSum(@Body() params: { day: number }) {
+    return this.userService.getLateWeekMonkey(params.day)
   }
 }

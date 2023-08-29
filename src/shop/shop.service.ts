@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {
-  typeAddClassify, typeAddShop, typeUpdataShop
+  typeAddClassify, typeAddShop, typeUpdataClassify, typeUpdataShop
 } from './dto/create-shop.dto'
 import { ShopList, ShopClassify } from './entities/shop.entities'
 import { TypeID, typePage } from 'src/DTO/share';
@@ -31,6 +31,16 @@ export class ShopService {
       take: 10
     })
     return { data: res }
+  }
+
+  async updataClassify(data: typeUpdataClassify) {
+    const res = await this.shopClassify.update(data.id, data)
+    if (res.affected != 0) {
+      return { message: '修改成功' }
+    } else {
+      return { message: '修改失败' }
+    }
+
   }
 
   //添加商品

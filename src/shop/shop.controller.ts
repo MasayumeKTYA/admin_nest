@@ -2,7 +2,7 @@ import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { Request } from 'express'
 import { ShopService } from './shop.service';
 import {
-  typeAddClassify, typeAddShop, typeUpdataShop
+  typeAddClassify, typeAddShop, typeUpdataShop, typeUpdataClassify
 } from './dto/create-shop.dto'
 import { TypeID, typePage } from 'src/DTO/share';
 import { AuthGuard } from '@nestjs/passport';
@@ -32,6 +32,13 @@ export class ShopController {
   async PostFindShopClassify(
     @Body() data: typePage) {
     return this.shopService.findClassify(data)
+  }
+
+  //修改分类
+  @Post('updataClassify')
+  async PostUpdataShopClassify(
+    @Body() data: typeUpdataClassify) {
+    return this.shopService.updataClassify(data)
   }
 
   //添加商品

@@ -1,8 +1,10 @@
 
 ## Description
 
-admin 接口部分 以nest创建
-
+admin 接口部分 使用nest创建
+前端为vue3搭建的后台管理 
+前端地址 https://github.com/MasayumeKTYA/admin_vue3
+nest+mysql+jwt+typeorm
 ## Installation
 
 ```bash

@@ -2,8 +2,18 @@ import { IsString, IsNotEmpty, IsNumber, IsEmail, IsOptional } from 'class-valid
 
 //添加分类
 export class typeAddClassify {
-  @IsNotEmpty({ message: 'username 不允许为空' })
-  @IsString({ message: 'username 必须为string' })
+  @IsNotEmpty({ message: 'title 不允许为空' })
+  @IsString({ message: 'title 必须为string' })
+  title: string;
+}
+
+export class typeUpdataClassify {
+  @IsNotEmpty({ message: 'id 不允许为空' })
+  @IsNumber()
+  id: number;
+
+  @IsNotEmpty({ message: 'title 不允许为空' })
+  @IsString({ message: 'title 必须为string' })
   title: string;
 }
 

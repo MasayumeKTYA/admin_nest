@@ -1,6 +1,6 @@
 export const env = {
-  DB_USERNAME: "zhutao",
-  DB_PASSWORD: "aaL3AaDxEWE53t6z",
-  DB_DATABASE: "zhutao",
+  DB_USERNAME: "",
+  DB_PASSWORD: "",
+  DB_DATABASE: "",
   TOKEN_KEY: "123456789abceefydsadasd",
 }
